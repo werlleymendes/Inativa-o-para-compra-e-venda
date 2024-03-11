@@ -1,7 +1,5 @@
-SELECT * FROM consinco.mrl_prodempseg
-
-SELECT a.seqproduto, b.estqloja, b.estqtroca
-       FROM consinco.map_produto        a
+UPDATE consinco.map_produto        a 
+       SET b.statuscompra = 'I'
        JOIN consinco.mrl_produtoempresa b
             ON a.seqproduto = b.seqproduto
        WHERE b.estqloja          <= 0 and
@@ -11,4 +9,4 @@ SELECT a.seqproduto, b.estqloja, b.estqtroca
              b.qtdpendpedcompra  = 0  and
              b.dtaultmovtacao    < trunc(sysdate) - 540;
              
-            
+
