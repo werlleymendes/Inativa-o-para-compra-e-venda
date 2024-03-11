@@ -1,3 +1,5 @@
+SELECT * FROM consinco.mrl_prodempseg
+
 SELECT a.seqproduto, b.estqloja, b.estqtroca
        FROM consinco.map_produto        a
        JOIN consinco.mrl_produtoempresa b
