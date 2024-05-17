@@ -18,7 +18,10 @@ UPDATE consinco.mrl_prodempseg a
 
 
 CREATE VIEW PRODUTOS_SEM_GIRO
-       AS SELECT b.seqproduto, b.nroempresa FROM consinco.mrl_produtoempresa b
+       AS SELECT b.seqproduto, a.desccompleta, b.nroempresa, b.dtaultmovtacao
+       FROM consinco.mrl_produtoempresa b
+       JOIN consinco.map_produto a
+       ON a.seqproduto = b.seqproduto
                    WHERE b.estqloja          <= 0 and
                          b.estqtroca         <= 0 and
                          b.statuscompra      = 'A'  and
@@ -26,6 +29,6 @@ CREATE VIEW PRODUTOS_SEM_GIRO
                          b.dtaultmovtacao    < trunc(sysdate) - 540;
 
 
-
+SELECT * FROM produtos_sem_giro;
 
 
