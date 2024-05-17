@@ -4,15 +4,10 @@ UPDATE consinco.mrl_prodempseg a
              a.nroempresa  = &empresa     and
              a.nrosegmento = &segmento    and
              trunc(a.dtahoraltstatusvda) < trunc(sysdate) - 540
-             and a.seqproduto EXISTS(
-                 SELECT a.seqproduto FROM consinco.mrl_produtoempresa a
-                   WHERE b.estqloja          <= 0 and
-                         b.estqtroca         <= 0 and
-                         b.nroempresa        = &empresa  and
-                         b.statuscompra      = 'A'  and
-                         b.qtdpendpedcompra  = 0  and
-                         b.dtaultmovtacao    < trunc(sysdate) - 540
-                                             );
+             and EXISTS(
+                 SELECT b.seqproduto
+                 FROM produtos_sem_giro b
+                 WHERE b.nroempresa = &empresa);
 
 
 
@@ -28,7 +23,5 @@ CREATE VIEW PRODUTOS_SEM_GIRO
                          b.qtdpendpedcompra  = 0  and
                          b.dtaultmovtacao    < trunc(sysdate) - 540;
 
-
-SELECT * FROM produtos_sem_giro;
 
 
