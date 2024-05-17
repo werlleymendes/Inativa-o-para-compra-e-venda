@@ -17,7 +17,13 @@ UPDATE consinco.mrl_prodempseg a
 
 
 
-
+CREATE VIEW PRODUTOS_SEM_GIRO
+       AS SELECT b.seqproduto, b.nroempresa FROM consinco.mrl_produtoempresa b
+                   WHERE b.estqloja          <= 0 and
+                         b.estqtroca         <= 0 and
+                         b.statuscompra      = 'A'  and
+                         b.qtdpendpedcompra  = 0  and
+                         b.dtaultmovtacao    < trunc(sysdate) - 540;
 
 
 
